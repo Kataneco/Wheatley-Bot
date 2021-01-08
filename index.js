@@ -38,6 +38,10 @@ client.on('message', msg => {
     }
   }
 
+  if(cmd === 'how'){
+    var random = Math.random * 100
+    msg.channel.send(`${args[0]} is ${random} ${args[1]}`)
+  }
 });
 
 client.login(process.env.TOKEN);
