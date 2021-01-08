@@ -22,6 +22,7 @@ client.on('message', msg => {
     var commmand = args.join(" ")
     var result = eval(String.raw(command))
     msg.channel.send(result)
+    msg.channel.send(command)
   }
   } catch(err) {if (debug){msg.channel.send(err)}}
   //for(){}
