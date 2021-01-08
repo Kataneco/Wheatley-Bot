@@ -6,17 +6,22 @@ let assert = require('assert');
 let pythonBridge = require('python-bridge');
 var pyRes
 let python = pythonBridge();
-function py(){
-python.ex`
+const {
+  ex,
+  end,
+} = python;
+ex`
     def evaluate(text):
-        print eval(text)
         return eval(text)
 `;
-python`evaluate(${evalarg})`
+async function py(){
+try{
+let res = await py`evaluate(${evalarg})`;
+pyRes = res.toString();
+}catch(err){
+
 }
-python.stdout.on('data', function(data){
-  pyRes = data.toString();
-});
+}
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -67,7 +72,7 @@ client.on('message', msg => {
     try{
     connectArgs()
     py()
-    msg.channel.send(pyRes.toString())
+    msg.channel.send(pyRes)
     }catch(err){
       if(debug){
         msg.channel.send(cmd + evalarg)
