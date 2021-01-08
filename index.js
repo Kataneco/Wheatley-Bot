@@ -6,13 +6,15 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+var lastArg
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-	if (!msg.content.startsWith(config.prefix)) return;
+	if (!message.content.startsWith(config.prefix)) return;
 
 	const args = msg.content.slice(config.prefix.length).trim().split(/ +/);
-	const cmd = args.shift().toLowerCase();
+  const cmd = args.shift().toLowerCase();
+  lastArg = args
 
   if (debug){
     msg.channel.send(cmd)
@@ -37,7 +39,7 @@ client.login(process.env.TOKEN);
 var connectArgs = {
   ret: function() {
     var value
-    args.forEach(element => {
+    lastArg.forEach(element => {
       value += element + ' '
     });
     return value
