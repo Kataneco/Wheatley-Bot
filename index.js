@@ -21,7 +21,7 @@ client.on('message', msg => {
 
   try{
     if(cmd === 'eval'){
-      var result = eval(connectArgs())
+      var result = eval(connectArgs.ret())
       msg.channel.send(result)
     }
   }
@@ -34,10 +34,12 @@ client.on('message', msg => {
 
 client.login(process.env.TOKEN);
 
-function connectArgs(){
-  var value
-  args.forEach(element => {
-    value += element + ' '
-  });
-  return value
+var connectArgs = {
+  ret: function() {
+    var value
+    args.forEach(element => {
+      value += element + ' '
+    });
+    return value
+  }
 }
