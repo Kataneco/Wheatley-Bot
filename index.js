@@ -19,7 +19,8 @@ client.on('message', msg => {
   }
   try{
   if(cmd === 'eval') {
-    var result = eval(args[0])
+    var commmand = args.join(" ")
+    var result = eval(String.raw(command))
     msg.channel.send(result)
   }
   } catch(err) {if (debug){msg.channel.send(err)}}
