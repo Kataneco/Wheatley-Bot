@@ -1,4 +1,14 @@
 {
 	"prefix": "w",
-	"token": "Nzk2NjI5NTczNDI4MTgzMDYw.X_atGg.Ed5SnA20resjfL5WvJljTLXRnvw"
+	"commands": ["help", "eval", "how"],
+	"descriptions": [
+		"Help", 
+		"Run JavaScript code in eval; \n ${config.prefix} eval <code>", 
+		"How <string> is <user>?; \n  ${config.prefix} how <string> <user>"
+	],
+	"actions": [
+		"",
+		"",
+		""
+	]
 }
