@@ -58,7 +58,7 @@ client.on('message', msg => {
     try{
     connectArgs()
     bruh()
-    msg.channel.send(pyRes)
+    msg.channel.send(pyRes.toString())
     }catch(err){
       if(debug){
         msg.channel.send(cmd + evalarg)
