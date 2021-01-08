@@ -44,7 +44,7 @@ client.on('message', msg => {
     msg.channel.send(`${args[2]} ${args[1]} %${random} ${args[0]}`)
   }
 
-  if(cmd === 'help' || cmd === 'welp'){
+  if(cmd === 'help' || cmd === 'elp'){
     msg.channel.send(`${config.prefix} eval <code>`)
   }
 
