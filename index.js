@@ -17,11 +17,12 @@ client.on('message', msg => {
     msg.channel.send(args)
     msg.channel.send(cmd)
   }
-  
+  try{
   if(cmd === 'eval') {
     var result = eval(args[0])
     msg.channel.send(result)
   }
+  } catch(err) {if (debug){msg.channel.send(err)}}
   //for(){}
 });
 
