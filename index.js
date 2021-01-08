@@ -35,9 +35,9 @@ client.on('message', msg => {
 client.login(process.env.TOKEN);
 
 function connectArgs(){
-  var value;
+  var value
   args.forEach(element => {
-    value += element + ' ';
+    value += element + ' '
   });
-  return value;
+  return value
 }
