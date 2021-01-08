@@ -32,7 +32,7 @@ client.on('message', msg => {
   catch(err){
     msg.channel.send(cmd)
     msg.channel.send(args)
-    msg.channel.send(connectArgs.ret())
+    msg.channel.send(connectArgs())
   }
 
 });
