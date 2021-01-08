@@ -9,9 +9,9 @@ client.on('ready', () => {
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-	if (!message.content.startsWith(config.prefix)) return;
+	if (!msg.content.startsWith(config.prefix)) return;
 
-	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+	const args = msg.content.slice(config.prefix.length).trim().split(/ +/);
 	const cmd = args.shift().toLowerCase();
 
   if (debug){
