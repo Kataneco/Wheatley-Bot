@@ -79,6 +79,6 @@ function connectArgs(){
 
 var pyRes;
 async function bruh(){
-  let result = await py`eval(${evalarg})`;
+  let result = await py(`eval(${evalarg})`);
   pyres = result;
 }
