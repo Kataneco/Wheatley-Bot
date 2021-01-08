@@ -20,19 +20,20 @@ client.on('message', msg => {
   if (debug){
     msg.channel.send(cmd)
     msg.channel.send(args)
+    msg.channel.send(evalarg)
   }
 
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = eval(evalarg)
+      var result = eval('('+evalarg+')')
       msg.channel.send(result)
     }
   }
   catch(err){
     msg.channel.send(cmd)
     msg.channel.send(args)
-    msg.channel.send(connectArgs())
+    msg.channel.send(evalarg)
   }
 
 });
