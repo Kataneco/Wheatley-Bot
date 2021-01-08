@@ -47,6 +47,10 @@ client.on('message', msg => {
   if(cmd === 'help' || cmd === 'welp'){
     msg.channel.send(`${config.prefix} eval <code>`)
   }
+
+  if(cmd === 'reset'){
+    process.exit(1)
+  }
 });
 
 client.login(process.env.TOKEN);
