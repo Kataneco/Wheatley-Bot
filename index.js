@@ -19,7 +19,7 @@ try{
 let res = await py`evaluate(${evalarg})`;
 pyRes = res.toString();
 }catch(err){
-
+  pyRes = err;
 }
 }
 
