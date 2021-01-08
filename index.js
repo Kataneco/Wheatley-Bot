@@ -2,13 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 
-const python = require('python-bridge');
-const py = python();
-const {
-  ex,
-  end,
-} = py;
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity(`welp`);
@@ -57,8 +50,8 @@ client.on('message', msg => {
   if(cmd === 'py' || cmd === 'python'){
     try{
     connectArgs()
-    bruh()
-    msg.channel.send(pyRes.toString())
+    var MyModel = require('./eval.py');
+    MyModel.call('evaluate', [evalarg]).then(function(result){msg.channel.send(result.toString())});
     }catch(err){
       if(debug){
         msg.channel.send(cmd + evalarg)
@@ -75,10 +68,4 @@ function connectArgs(){
   lastArg.forEach(element => {
     evalarg += element + " "
   });
-}
-
-var pyRes;
-async function bruh(){
-  let result = await py(`eval(${evalarg})`);
-  pyres = result;
 }
