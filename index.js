@@ -9,7 +9,7 @@ client.on('ready', () => {
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+	if (!message.content.startsWith(config.prefix)) return;
 
 	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
 	const cmd = args.shift().toLowerCase();
