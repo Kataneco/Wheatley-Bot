@@ -15,13 +15,13 @@ client.on('message', msg => {
   args = args.slice(cmd[0].length+1)
 
   try{
-    if(cmd[] === 'eval'){
+    if(cmd[0] === 'eval'){
       var result = eval(args)
       msg.channel.send(result)
     }
   }
   catch{
-    
+
   }
 
 });
