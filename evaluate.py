@@ -1,3 +1,3 @@
 import sys
-res = eval(sys.argv[1])
+res = eval(sys.argv[0])
 print(res)

@@ -18,25 +18,18 @@ client.on('message', msg => {
   const cmd = args.shift().toLowerCase();
   lastArg = args
 
-  if (debug){
-    msg.channel.send(cmd)
-    msg.channel.send(args)
-    msg.channel.send(evalarg)
-  }
-
   try{
     if(cmd === 'eval'){
       connectArgs()
       var result = eval('('+evalarg+')')
-      eval(evalarg)
       msg.channel.send(result)
+      eval(evalarg)
     }
   }
   catch(err){
     if(debug){
-    msg.channel.send(cmd)
-    msg.channel.send(args)
-    msg.channel.send(evalarg)
+    msg.channel.send(cmd + evalarg)
+    msg.channel.send(err)
     }
   }
 
@@ -57,8 +50,8 @@ client.on('message', msg => {
   if(cmd === 'py' || cmd === 'python'){
     connectArgs()
     input = evalarg
-    python()
-    msg.channel.send(pythonResult)
+    py()
+    msg.channel.send(pyRes)
   }
 });
 
@@ -71,14 +64,13 @@ function connectArgs(){
   });
 }
 
-const Spawn = require('child_process').spawn;
 
-var input
-var py
-var pythonResult
-function python(){
-  py = Spawn('python', ["./evaluate.py", input]);
-  py.stdout.on('data', function(data){
-    pythonResult = data;
-  })
+var input;
+var pyRes;
+function py(){
+  var spawn = require("child_process").spawn; 
+  var process = spawn('python',["./evaluate.py", input]); 
+  process.stdout.on('data', function(data) { 
+    pyRes=data;
+  }) 
 }
