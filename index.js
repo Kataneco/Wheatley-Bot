@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 
-const assert = require('assert');
 const python = require('python-bridge');
 const py = python();
 const {
@@ -58,8 +57,8 @@ client.on('message', msg => {
   if(cmd === 'py' || cmd === 'python'){
     try{
     connectArgs()
-    let result = await py`eval(${evalarg})`;
-    msg.channel.send(result)
+    bruh()
+    msg.channel.send(pyRes)
     }catch(err){
       if(debug){
         msg.channel.send(cmd + evalarg)
@@ -76,4 +75,10 @@ function connectArgs(){
   lastArg.forEach(element => {
     evalarg += element + " "
   });
+}
+
+var pyRes;
+async function bruh(){
+  let result = await py`eval(${evalarg})`;
+  pyres = result;
 }
