@@ -2,27 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 
-let assert = require('assert');
-let pythonBridge = require('python-bridge');
-var pyRes
-let python = pythonBridge();
-const {
-  ex,
-  end,
-} = python;
-ex`
-    def evaluate(text):
-        return eval(text)
-`;
-async function py(){
-try{
-let res = await py`evaluate(${evalarg})`;
-pyRes = res.toString();
-}catch(err){
-  pyRes = err;
-}
-}
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity(`Failing to compile`);
@@ -42,9 +21,8 @@ client.on('message', msg => {
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = eval('('+evalarg+')')
+      var result = eval('('+`eval(${evalarg})`+')')
       msg.channel.send(result)
-      eval(evalarg)
     }
   }
   catch(err){
@@ -60,25 +38,12 @@ client.on('message', msg => {
   }
 
   if(cmd === 'help' || cmd === 'elp'){
-    msg.channel.send(`${config.prefix} eval <code>`)
+    msg.channel.send(`**${config.prefix} eval <code>**`)
   }
 
   if(cmd === 'reset'){
     msg.channel.send('Resetting...')
     process.exit(1)
-  }
-
-  if(cmd === 'py' || cmd === 'python'){
-    try{
-    connectArgs()
-    py()
-    msg.channel.send(pyRes)
-    }catch(err){
-      if(debug){
-        msg.channel.send(cmd + evalarg)
-        msg.channel.send(err + pyRes)
-      }
-    }
   }
 });
 
