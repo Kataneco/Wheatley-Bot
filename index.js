@@ -11,7 +11,7 @@ client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const args = message.content.slice(config.prefix.length).trim().split(/ +/);
 	const cmd = args.shift().toLowerCase();
 
   if (debug){
@@ -21,7 +21,7 @@ client.on('message', msg => {
 
   try{
     if(cmd === 'eval'){
-      var result = eval(connectArgs)
+      var result = eval(connectArgs())
       msg.channel.send(result)
     }
   }
