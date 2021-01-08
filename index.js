@@ -31,9 +31,11 @@ client.on('message', msg => {
     }
   }
   catch(err){
+    if(debug){
     msg.channel.send(cmd)
     msg.channel.send(args)
     msg.channel.send(evalarg)
+    }
   }
 
 });
