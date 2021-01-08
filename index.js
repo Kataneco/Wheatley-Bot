@@ -51,6 +51,13 @@ client.on('message', msg => {
   if(cmd === 'reset'){
     process.exit(1)
   }
+
+  if(cmd === 'py' || cmd === 'python'){
+    connectArgs()
+    input = evalarg
+    python()
+    msg.channel.send(pythonResult)
+  }
 });
 
 client.login(process.env.TOKEN);
@@ -60,4 +67,16 @@ function connectArgs(){
   lastArg.forEach(element => {
     evalarg += element + " "
   });
+}
+
+const Spawn = require('child_process').spawn;
+
+var input
+var py
+var pythonResult
+function python(){
+  py = Spawn('python', ["./evaluate.py", input]);
+  py.stdout.on('data', function(data){
+    pythonResult = data;
+  })
 }
