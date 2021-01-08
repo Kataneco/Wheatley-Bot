@@ -6,26 +6,25 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-var debug = true;
+var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
   if(!msg.content.startsWith(config.prefix)) return;
-  const args = msg.content.slice(config.prefix.length).trim().split(/ +/) //I have no idea what / +/ means lol
-  const cmd = args.shift()
+  const args = msg.content.slice(config.prefix.length) //I have no idea what / +/ means lol
+  const cmd = args.split(" ")
+  args = args.slice(cmd[0].length+1)
 
-  if(debug){
-    msg.channel.send(args)
-    msg.channel.send(cmd)
-  }
   try{
-  if(cmd === 'eval') {
-    var command = args.join(" ")
-    var result = eval(String.raw(command))
-    msg.channel.send(result)
-    msg.channel.send(command)
+    if(cmd === 'eval'){
+      var result = eval(args)
+      msg.channel.send(result)
+    }
   }
-  } catch(err) {if (debug){msg.channel.send(err)}}
-  //for(){}
+  catch
+  {
+
+  }
+  
 });
 
 client.login(process.env.TOKEN);
