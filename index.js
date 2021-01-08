@@ -38,7 +38,7 @@ client.on('message', msg => {
   }
 
   if(cmd === 'help' || cmd === 'elp'){
-    msg.channel.send(`**${config.prefix} eval <code>**`)
+    msg.channel.send(`**${config.prefix} eval '<code>'**`)
   }
 
   if(cmd === 'reset'){
