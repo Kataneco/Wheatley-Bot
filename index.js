@@ -4,6 +4,7 @@ const config = require('./config.json');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity(`welp`);
 });
 
 var lastArg
@@ -11,7 +12,7 @@ var evalarg
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-	if (!msg.content.startsWith(config.prefix)) return;
+	if (!msg.content.startsWith(config.prefix) || msg.author == client.user.bot) return;
 
 	const args = msg.content.slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
@@ -41,6 +42,10 @@ client.on('message', msg => {
   if(cmd === 'how'){
     var random = Math.round(Math.random() * 100)
     msg.channel.send(`${args[2]} ${args[1]} %${random} ${args[0]}`)
+  }
+
+  if(cmd === 'help' || cmd === 'welp'){
+    msg.channel.send(`${config.prefix} eval <code>`)
   }
 });
 
