@@ -14,6 +14,10 @@ client.on('message', msg => {
   const cmd = args.split(" ")
   args = args.slice(cmd[0].length+1)
 
+  if (debug){
+    msg.channel.send(cmd)
+    msg.channel.send(args)
+  }
   try{
     if(cmd[0] === 'eval'){
       var result = eval(args)
@@ -21,6 +25,8 @@ client.on('message', msg => {
     }
   }
   catch{
+    msg.channel.send(cmd)
+    msg.channel.send(args)
 
   }
 
