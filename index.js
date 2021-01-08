@@ -9,27 +9,35 @@ client.on('ready', () => {
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-  if(!msg.content.startsWith(config.prefix)) return;
-  const args = msg.content.slice(config.prefix.length) //I have no idea what / +/ means lol
-  const cmd = args.split(" ")
-  args = args.slice(cmd[0].length+1)
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const cmd = args.shift().toLowerCase();
 
   if (debug){
     msg.channel.send(cmd)
     msg.channel.send(args)
   }
+
   try{
-    if(cmd[0] === 'eval'){
-      var result = eval(args)
+    if(cmd === 'eval'){
+      var result = eval(connectArgs)
       msg.channel.send(result)
     }
   }
   catch{
     msg.channel.send(cmd)
     msg.channel.send(args)
-
   }
 
 });
 
 client.login(process.env.TOKEN);
+
+function connectArgs(){
+  var value;
+  args.forEach(element => {
+    value += element + ' ';
+  });
+  return value;
+}
