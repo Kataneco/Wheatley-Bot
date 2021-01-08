@@ -41,6 +41,7 @@ client.on('message', msg => {
 client.login(process.env.TOKEN);
 
 function connectArgs(){
+  evalarg = ''
   lastArg.forEach(element => {
     evalarg += element + " "
   });
