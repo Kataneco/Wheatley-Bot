@@ -49,6 +49,7 @@ client.on('message', msg => {
   }
 
   if(cmd === 'reset'){
+    msg.channel.send('Resetting...')
     process.exit(1)
   }
 
