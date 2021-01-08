@@ -2,6 +2,14 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 
+const assert = require('assert');
+const python = require('python-bridge');
+const py = python();
+const {
+  ex,
+  end,
+} = py;
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity(`welp`);
@@ -48,10 +56,16 @@ client.on('message', msg => {
   }
 
   if(cmd === 'py' || cmd === 'python'){
+    try{
     connectArgs()
-    input = evalarg
-    py()
-    msg.channel.send(pyRes)
+    let result = await py`eval(${evalarg})`;
+    msg.channel.send(result)
+    }catch(err){
+      if(debug){
+        msg.channel.send(cmd + evalarg)
+        msg.channel.send(err)
+      }
+    }
   }
 });
 
@@ -62,15 +76,4 @@ function connectArgs(){
   lastArg.forEach(element => {
     evalarg += element + " "
   });
-}
-
-
-var input;
-var pyRes;
-function py(){
-  var spawn = require("child_process").spawn; 
-  var process = spawn('python',["./evaluate.py", input]); 
-  process.stdout.on('data', function(data) { 
-    pyRes=data;
-  }) 
 }
