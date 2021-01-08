@@ -2,9 +2,25 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 
+let assert = require('assert');
+let pythonBridge = require('python-bridge');
+var pyRes
+let python = pythonBridge();
+function py(){
+python.ex`
+    def evaluate(text):
+        print eval(text)
+        return eval(text)
+`;
+python`evaluate(${evalarg})`
+}
+python.stdout.on('data', function(data){
+  pyRes = data.toString();
+});
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity(`welp`);
+  client.user.setActivity(`Failing to compile`);
 });
 
 var lastArg
@@ -50,8 +66,8 @@ client.on('message', msg => {
   if(cmd === 'py' || cmd === 'python'){
     try{
     connectArgs()
-    var MyModel = require('./eval.py');
-    MyModel.call('evaluate', [evalarg]).then(function(result){msg.channel.send(result.toString())});
+    py()
+    msg.channel.send(pyRes.toString())
     }catch(err){
       if(debug){
         msg.channel.send(cmd + evalarg)
