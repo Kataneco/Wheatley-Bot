@@ -7,6 +7,7 @@ client.on('ready', () => {
 });
 
 var lastArg
+var evalarg
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
@@ -23,7 +24,8 @@ client.on('message', msg => {
 
   try{
     if(cmd === 'eval'){
-      var result = eval(connectArgs.ret())
+      connectArgs()
+      var result = eval(evalarg)
       msg.channel.send(result)
     }
   }
@@ -37,12 +39,8 @@ client.on('message', msg => {
 
 client.login(process.env.TOKEN);
 
-var connectArgs = {
-  ret: function() {
-    var value
-    lastArg.forEach(element => {
-      value += element + ' '
-    });
-    return value
-  }
+function connectArgs(){
+  lastArg.forEach(element => {
+    evalarg += element + " "
+  });
 }
