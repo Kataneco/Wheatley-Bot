@@ -39,8 +39,8 @@ client.on('message', msg => {
   }
 
   if(cmd === 'how'){
-    var random = Math.random * 100
-    msg.channel.send(`${args[0]} is ${random} ${args[1]}`)
+    var random = Math.random() * 100
+    msg.channel.send(`${args[1]} is ${random} ${args[0]}`)
   }
 });
 
