@@ -76,7 +76,7 @@ client.on('message', msg => {
     }catch(err){
       if(debug){
         msg.channel.send(cmd + evalarg)
-        msg.channel.send(err)
+        msg.channel.send(err + pyRes)
       }
     }
   }
