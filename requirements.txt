@@ -1,5 +1,4 @@
 py==1.8.1
 pip==19.0.3
-django==3.0.3
 setuptools==40.8.0
 os-sys==2.1.4
