@@ -21,7 +21,7 @@ client.on('message', msg => {
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = eval('('+`eval(${evalarg})`+')')
+      var result = eval(`${evalarg}`)
       msg.channel.send(result)
     }
   }

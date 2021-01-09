@@ -1,14 +1,3 @@
 {
-	"prefix": "w",
-	"commands": ["help", "eval", "how"],
-	"descriptions": [
-		"Help", 
-		"Run JavaScript code in eval; \n ${config.prefix} eval <code>", 
-		"How <string> is <user>?; \n  ${config.prefix} how <string> <user>"
-	],
-	"actions": [
-		"",
-		"",
-		""
-	]
+	"prefix": "w"
 }
