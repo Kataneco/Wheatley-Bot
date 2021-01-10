@@ -4,7 +4,7 @@ const config = require('./config.json');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity(`Failing to compile`);
+  client.user.setActivity(`Failing to interpret`);
 });
 
 var lastArg
@@ -32,6 +32,11 @@ client.on('message', msg => {
     }
   }
 
+  if(cmd === 'host'){
+    connectArgs();
+    host(evalarg);
+  }
+
   if(cmd === 'how'){
     var random = Math.round(Math.random() * 100)
     msg.channel.send(`${args[2]} ${args[1]} %${random} ${args[0]}`)
@@ -54,4 +59,12 @@ function connectArgs(){
   lastArg.forEach(element => {
     evalarg += element + " "
   });
+}
+
+async function host(char){
+  try{
+    eval(`${char}`);
+  }
+  catch(err){
+  }
 }
