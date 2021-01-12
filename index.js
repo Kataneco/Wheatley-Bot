@@ -14,9 +14,10 @@ var evalarg
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-	if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+  if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
+  
 
-	const args = msg.content.slice(config.prefix.length).trim().split(/ +/);
+	const args = msg.content.replace(/(\r\n|\n|\r)/gm,"").slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
   lastArg = args
 
