@@ -7,6 +7,8 @@ client.on('ready', () => {
   client.user.setActivity(`Failing to interpret`);
 });
 
+var funcsave = '';
+
 var lastArg
 var evalarg
 var debug = false;
@@ -21,7 +23,7 @@ client.on('message', msg => {
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = eval(`${evalarg}`)
+      var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
       msg.channel.send(result)
     }
   }
@@ -43,13 +45,20 @@ client.on('message', msg => {
   }
 
   if(cmd === 'help' || cmd === 'elp'){
-    msg.channel.send(`**${config.prefix} eval '<code>'**`)
+    msg.channel.send(`**${config.prefix} eval <code>**\n**${config.prefix} func <code>**\n **${config.prefix} clear (clears saved functions)**`)
   }
 
   if(cmd === 'reset'){
     msg.channel.send('Resetting...')
     process.exit(1)
   }
+
+  if(cmd === 'func'){
+    connectArgs();
+    funcsave += evalarg;
+  }
+
+  if(cmd === 'clear')funcsave = '';
 });
 
 client.login(process.env.TOKEN);
