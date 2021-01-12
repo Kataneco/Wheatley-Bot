@@ -17,7 +17,7 @@ client.on('message', msg => {
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
   
 
-	const args = msg.content.replace(/(\r\n|\n|\r)/gm,"").slice(config.prefix.length).trim().split(/ +/);
+	const args = msg.content.replace('\n', ' ').slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
   lastArg = args
 
