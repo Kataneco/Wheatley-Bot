@@ -91,7 +91,7 @@ function run(gen, mili){
   }while(true);
 }
 
-function evaluate(){
+function* evaluate(){
   var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
   return result;
 }
