@@ -24,7 +24,7 @@ client.on('message', msg => {
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
+      var result = run(evaluate, 2000)
       msg.channel.send(result)
     }
   }
@@ -77,4 +77,21 @@ async function host(char){
   }
   catch(err){
   }
+}
+
+function run(gen, mili){
+  const iter = gen();
+  const end = Date.now() + mili;
+  do {
+    const {value,done} = iter.next();
+    if(done) return value;
+    if(end < Date.now()){
+      return null;
+    }
+  }while(true);
+}
+
+function evaluate(){
+  var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
+  return result;
 }
