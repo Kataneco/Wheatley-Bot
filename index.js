@@ -24,7 +24,7 @@ client.on('message', msg => {
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = run(A, 2000)
+      var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
       msg.channel.send(result)
     }
   }
@@ -77,22 +77,4 @@ async function host(char){
   }
   catch(err){
   }
-}
-
-function* A(){
-  var value = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
-  return value;
-}
-
-function run(gen, mili){
-  const iter = gen();
-  const end = Date.now() + mili;
-  do {
-    const {value,done} = iter.next();
-    if(done) return value;
-    if(end < Date.now()){
-      console.log("Halted function, took longer than " + mili + " miliseconds");
-      return null;
-    }
-  }while(true);
 }
