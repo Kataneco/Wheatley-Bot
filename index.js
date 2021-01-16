@@ -24,7 +24,8 @@ client.on('message', msg => {
   try{
     if(cmd === 'eval'){
       connectArgs()
-      var result = run(evaluate, 2000)
+      run(evaluate, 1000)
+      var result = res
       msg.channel.send(result)
     }
   }
@@ -91,7 +92,7 @@ function run(gen, mili){
   }while(true);
 }
 
+var res
 function* evaluate(){
-  var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
-  return result;
+  res = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
 }
