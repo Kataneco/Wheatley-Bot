@@ -78,3 +78,11 @@ async function host(char){
   catch(err){
   }
 }
+
+async function keepAlive(){
+  while(client.users.fetch('796629573428183060').presence.status === "online"){
+    continue;
+  }
+  client.login(process.env.TOKEN);
+  keepAlive();
+}
