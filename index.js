@@ -2,10 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 
-while(true){
-  if(client.users.fetch('796629573428183060').presence.status === "online"){
-    continue;
-  }
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity(`Failing to interpret`);
@@ -81,5 +77,4 @@ async function host(char){
   }
   catch(err){
   }
-}
 }
