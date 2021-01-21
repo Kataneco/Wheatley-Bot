@@ -102,7 +102,8 @@ client.on('message', msg => {
 
   if(cmd === 'write'){
     var file = args.shift();
-    fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
+    connectArgs();
+    fs.writeFile(`${file}.cpp`, `${evalarg}`, function(err){if(err)msg.channel.send(err);});
   }
   }catch(e){
     msg.channel.send(e);
