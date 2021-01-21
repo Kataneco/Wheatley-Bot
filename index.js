@@ -102,14 +102,14 @@ client.on('message', msg => {
 
   try{
   if(cmd === 'new'){
-    fs.writeFile(`${args[0]}.cpp`, '', function(err){if(err) msg.channel.send(err);});
+    fs.writeFile(`${args[0]}.c`, '', function(err){if(err) msg.channel.send(err);});
   }
 
   if(cmd === 'write'){
     var file = args.shift();
     var code = assemble(msg.content, config.prefix.length + cmd.length + file.length + 2 + 2);
     connectArgs();
-    fs.writeFile(`${file}.cpp`, `${code}`, function(err){if(err) msg.channel.send(err);});
+    fs.writeFile(`${file}.c`, `${code}`, function(err){if(err) msg.channel.send(err);});
     //fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
   }
   }catch(e){
