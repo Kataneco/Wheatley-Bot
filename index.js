@@ -107,7 +107,7 @@ client.on('message', msg => {
 
   if(cmd === 'write'){
     var file = args.shift();
-    var code = assemble(msg.content, config.prefix.length + cmd.length + file.length);
+    var code = assemble(msg.content, config.prefix.length + cmd.length + file.length + 2 + 2);
     connectArgs();
     fs.writeFile(`${file}.cpp`, `${code}`, function(err){if(err) msg.channel.send(err);});
     //fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
@@ -122,7 +122,7 @@ client.login(process.env.TOKEN);
 function connectArgs(){
   evalarg = ''
   lastArg.forEach(element => {
-    evalarg += element + " "
+    evalarg += " " + element;
   });
 }
 
