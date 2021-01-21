@@ -1,10 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
+const { exec } = require('child_process');
+const { stdout, stderr } = require('process');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity(`Failing to interpret`);
+  client.user.setActivity(`Failing to compile`);
+  exec("apt-get update && apt-get install build-essential", (error, stdout, stderr) => {});
 });
 
 var funcsave = '';
@@ -60,6 +63,26 @@ client.on('message', msg => {
   }
 
   if(cmd === 'clear')funcsave = '';
+
+  if(cmd === 'exec'){
+    connectArgs();
+    exec(`${evalarg}`, (error, stdout, stderr) => {if(debug) msg.channel.send(`${stdout}\n${stderr}`);})
+  }
+
+  if(cmd === 'upload'){
+    exec(`wget ${args}`, (error, stdout, stderr) => {
+      msg.channel.send(stdout);
+      if(stderr == '') msg.channel.send('Success'); else msg.channel.send('Failed');
+    });
+  }
+
+  if(cmd === 'dir'){
+    exec("ls", (error, stdout, stderr) => {
+      msg.channel.send(stdout);
+      msg.channel.send(stderr);
+      });
+  }
+
 });
 
 client.login(process.env.TOKEN);
