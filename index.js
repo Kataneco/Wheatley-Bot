@@ -95,16 +95,18 @@ client.on('message', msg => {
       msg.channel.send(stderr);
       });
   }
-
+  try{
   if(cmd === 'new'){
-    fs.writeFile(`${args[0]}.cpp`);
+    fs.writeFile(`${args[0]}.cpp`, '', function(err){if(err)msg.channel.send(err);});
   }
 
   if(cmd === 'write'){
     var file = args.shift();
-    fs.writeFile(`${file}.cpp`, `${args}`);
+    fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
   }
-
+  }catch(e){
+    msg.channel.send(e);
+  }
 });
 
 client.login(process.env.TOKEN);
