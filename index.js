@@ -107,7 +107,7 @@ client.on('message', msg => {
 
   if(cmd === 'write'){
     var file = args.shift();
-    var code = assemble(msg.content, config.prefix.length + cmd.length + file.length + 2 + 2);
+    var code = assemble(msg.content, config.prefix.length + cmd.length + file.length + 2 + 1);
     connectArgs();
     fs.writeFile(`${file}`, `${code}`, function(err){if(err) msg.channel.send(err);});
     //fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
