@@ -51,10 +51,10 @@ client.on('message', msg => {
     msg.channel.send(`
     **${config.prefix} eval <code>**\n
     **${config.prefix} func <code>**\n
-    **${config.prefix} clear (clears saved functions)**
-    **${config.prefix} exec <command>**
-    **${config.prefix} dir (shows bot directory)**
-    **${config.prefix} upload <link>**
+    **${config.prefix} clear (clears saved functions)**\n
+    **${config.prefix} exec <command>**\n
+    **${config.prefix} dir (shows bot directory)**\n
+    **${config.prefix} upload <link>**\n
     `)
   }
 
@@ -62,6 +62,7 @@ client.on('message', msg => {
     msg.channel.send('Resetting...')
     process.exit(1)
   }
+  //if (cmd === kill){msg.channel.send('me kill'); exec("node start"); process.exit()}
 
   if(cmd === 'func'){
     connectArgs();
@@ -72,7 +73,7 @@ client.on('message', msg => {
 
   if(cmd === 'exec'){
     connectArgs();
-    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);});
+    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}\n${error}`);});
   }
 
   if(cmd === 'upload'){
