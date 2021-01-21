@@ -73,6 +73,7 @@ client.on('message', msg => {
     exec(`wget ${args}`, (error, stdout, stderr) => {
       msg.channel.send(stdout);
       if(stderr == '') msg.channel.send('Success'); else msg.channel.send('Failed');
+      if(debug) msg.channel.send(`${stdout}\n${stderr}`);
     });
   }
 
