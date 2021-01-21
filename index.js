@@ -118,7 +118,7 @@ client.on('message', msg => {
 
   if (msg.content === '!play') {
     const channel = message.member.voiceChannel;
-
+    msg.channel.send({File: ['maximum_overdrive.mp3']});
     channel.join()
     .then(connection => msg.channel.send('Connected!'))
     .catch(console.error);
