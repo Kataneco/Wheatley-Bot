@@ -8,7 +8,7 @@ const fs = require('fs');
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity(`Minecraft`);
-  exec("apt-get update && apt-get install build-essential", (error, stdout, stderr) => {});
+  //exec("", (error, stdout, stderr) => {});
 });
 
 var funcsave = '';
