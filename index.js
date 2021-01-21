@@ -102,9 +102,13 @@ client.on('message', msg => {
 
   if(cmd === 'write'){
     var file = args.shift();
+<<<<<<< HEAD
     var code = assemble(msg.content, file.length + config.prefix.length + cmd.length);
     connectArgs();
     fs.writeFile(`${file}.cpp`, `${evalarg}`, function(err){if(err)msg.channel.send(err);});
+=======
+    fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
+>>>>>>> parent of 5d598fd... Update index.js
   }
   }catch(e){
     msg.channel.send(e);
