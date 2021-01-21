@@ -77,7 +77,7 @@ client.on('message', msg => {
   if(cmd === 'clear')funcsave = '';
 
   if(cmd === 'exec'){
-    connectArgs();
+
     exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);});
   }
 
@@ -102,8 +102,8 @@ client.on('message', msg => {
 
   if(cmd === 'write'){
     var file = args.shift();
-    connectArgs();
-    fs.writeFile(`${file}.cpp`, `${evalarg}`, function(err){if(err)msg.channel.send(err);});
+    var code = assemble(msg.content, file.length + config.prefix.length + cmd.length);
+    fs.writeFile(`${file}.cpp`, `${code}`, function(err){if(err)msg.channel.send(err);});
   }
   }catch(e){
     msg.channel.send(e);
@@ -125,4 +125,10 @@ async function host(char){
   }
   catch(err){
   }
+}
+
+function assemble(code, cut){
+  var result = '';
+  result = code.slice(cut);
+  return result;
 }
