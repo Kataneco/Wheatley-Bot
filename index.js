@@ -6,14 +6,14 @@ const { stdout, stderr } = require('process');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity(`Failing to compile`);
+  client.user.setActivity(`Minecraft`);
   exec("apt-get update && apt-get install build-essential", (error, stdout, stderr) => {});
 });
 
 var funcsave = '';
 
-var lastArg
-var evalarg
+var lastArg;
+var evalarg;
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
@@ -22,19 +22,18 @@ client.on('message', msg => {
 
 	const args = msg.content.replace('\n', ' ').slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
-  lastArg = args
+  lastArg = args;
 
   try{
     if(cmd === 'eval'){
-      connectArgs()
-      var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`)
-      msg.channel.send(result)
+      connectArgs();
+      var result = eval(`try{${funcsave}}catch(e){msg.channel.send(e);}`+`${evalarg}`);
+      msg.channel.send(result);
     }
   }
   catch(err){
     if(debug){
-    msg.channel.send(cmd + evalarg)
-    msg.channel.send(err)
+    msg.channel.send(err);
     }
   }
 
@@ -49,7 +48,14 @@ client.on('message', msg => {
   }
 
   if(cmd === 'help' || cmd === 'elp'){
-    msg.channel.send(`**${config.prefix} eval <code>**\n**${config.prefix} func <code>**\n **${config.prefix} clear (clears saved functions)**`)
+    msg.channel.send(`
+    **${config.prefix} eval <code>**\n
+    **${config.prefix} func <code>**\n
+    **${config.prefix} clear (clears saved functions)**
+    **${config.prefix} exec <command>**
+    **${config.prefix} dir (shows bot directory)**
+    **${config.prefix} upload <link>**
+    `)
   }
 
   if(cmd === 'reset'){
@@ -66,13 +72,12 @@ client.on('message', msg => {
 
   if(cmd === 'exec'){
     connectArgs();
-    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);})
+    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);});
   }
 
   if(cmd === 'upload'){
     exec(`wget ${args}`, (error, stdout, stderr) => {
       msg.channel.send(stdout);
-      if(stderr == null) msg.channel.send('Success'); else msg.channel.send('Failed');
       if(debug) msg.channel.send(`${stdout}\n${stderr}`);
     });
   }
