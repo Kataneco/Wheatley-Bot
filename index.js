@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 const { exec } = require('child_process');
 const { stdout, stderr } = require('process');
+const fs = require('fs');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -73,13 +74,14 @@ client.on('message', msg => {
 
   if(cmd === 'exec'){
     connectArgs();
-    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}\n${error}`);});
+    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);});
   }
 
   if(cmd === 'upload'){
     exec(`wget ${args}`, (error, stdout, stderr) => {
       msg.channel.send(stdout);
       if(debug) msg.channel.send(`${stdout}\n${stderr}`);
+      if(!stderr) msg.channel.send('Success'); else msg.channel.send('Failed');
     });
   }
 
