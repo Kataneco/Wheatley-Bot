@@ -66,13 +66,13 @@ client.on('message', msg => {
 
   if(cmd === 'exec'){
     connectArgs();
-    exec(`${evalarg}`, (error, stdout, stderr) => {if(debug) msg.channel.send(`${stdout}\n${stderr}`);})
+    exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);})
   }
 
   if(cmd === 'upload'){
     exec(`wget ${args}`, (error, stdout, stderr) => {
       msg.channel.send(stdout);
-      if(stderr == '') msg.channel.send('Success'); else msg.channel.send('Failed');
+      if(stderr == null) msg.channel.send('Success'); else msg.channel.send('Failed');
       if(debug) msg.channel.send(`${stdout}\n${stderr}`);
     });
   }
