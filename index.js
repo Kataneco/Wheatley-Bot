@@ -118,7 +118,7 @@ client.on('message', msg => {
 
   if(cmd === 'play'){
     connectArgs();
-    var voiceChannel = msg.member.voice.channel; voiceChannel.join().then(connection =>{const dispatcher = connection.play(evalarg); dispatcher.on("end", end => {voiceChannel.leave();});}).catch(err => console.log(err));
+    var voiceChannel = msg.member.voice.channel; voiceChannel.join().then(connection =>{const dispatcher = connection.play(args[0]); dispatcher.on("end", end => {voiceChannel.leave();});}).catch(err => console.log(err));
   }
 });
 
