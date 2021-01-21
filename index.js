@@ -52,10 +52,12 @@ client.on('message', msg => {
     msg.channel.send(`
     **${config.prefix} eval <code>**\n
     **${config.prefix} func <code>**\n
-    **${config.prefix} clear (clears saved functions)**\n
+    **${config.prefix} clear (clears saved functions)**\n\n
     **${config.prefix} exec <command>**\n
     **${config.prefix} dir (shows bot directory)**\n
     **${config.prefix} upload <link>**\n
+    **${config.prefix} new <file name>\n\n
+    **${config.prefix} write <file name> <content>\n
     `)
   }
 
@@ -90,6 +92,15 @@ client.on('message', msg => {
       msg.channel.send(stdout);
       msg.channel.send(stderr);
       });
+  }
+
+  if(cmd === 'new'){
+    fs.writeFile(`${args[0]}.cpp`);
+  }
+
+  if(cmd === 'write'){
+    var file = args.shift();
+    fs.writeFile(`${file}.cpp`, `${args}`);
   }
 
 });
