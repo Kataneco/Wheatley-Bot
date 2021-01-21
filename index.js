@@ -89,7 +89,7 @@ client.on('message', msg => {
     exec(`wget ${args[0]}`, (error, stdout, stderr) => {
       msg.channel.send(stdout);
       if(debug) msg.channel.send(`${stdout}\n${stderr}`);
-      if(stderr.length < 10) msg.channel.send('Success'); else msg.channel.send('Failed');
+      //if(stderr.length < 10) msg.channel.send('Success'); else msg.channel.send('Failed');
     });
   }
 
@@ -114,6 +114,14 @@ client.on('message', msg => {
   }
   }catch(e){
     msg.channel.send(e);
+  }
+
+  if (msg.content === '!play') {
+    const channel = message.member.voiceChannel;
+
+    channel.join()
+    .then(connection => msg.channel.send('Connected!'))
+    .catch(console.error);
   }
 });
 
