@@ -116,12 +116,13 @@ client.on('message', msg => {
     msg.channel.send(e);
   }
 
-  if (msg.content === '!play') {
-    const channel = message.member.voiceChannel;
-    msg.channel.send({File: ['maximum_overdrive.mp3']});
-    channel.join()
-    .then(connection => msg.channel.send('Connected!'))
-    .catch(console.error);
+  if(cmd === 'play'){
+    connectArgs();
+    var voiceChannel = msg.member.voice.channel;
+    voiceChannel.join().then(connection =>{
+      const dispatcher = connection.play(`${evalarg}`);
+      dispatcher.on("end", end => {voiceChannel.leave();});
+    }).catch(err => console.log(err));
   }
 });
 
