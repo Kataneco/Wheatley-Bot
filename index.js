@@ -50,7 +50,8 @@ client.on('message', msg => {
 
   if(cmd === 'help' || cmd === 'elp'){
     msg.channel.send(`
-     **${config.prefix} eval <code>**
+
+    **${config.prefix} eval <code>**
     **${config.prefix} func <code>**
     **${config.prefix} clear (clears saved functions)**
 
@@ -60,13 +61,15 @@ client.on('message', msg => {
 
     **${config.prefix} new <file name>**
     **${config.prefix} write <file name> <content>**
-    `)
+
+    `);
   }
 
   if(cmd === 'reset'){
-    msg.channel.send('Resetting...')
-    process.exit(1)
+    msg.channel.send('Resetting...');
+    process.exit(1);
   }
+
   //if (cmd === kill){msg.channel.send('me kill'); exec("node start"); process.exit()}
 
   if(cmd === 'func'){
@@ -77,12 +80,13 @@ client.on('message', msg => {
   if(cmd === 'clear')funcsave = '';
 
   if(cmd === 'exec'){
-
+    connectArgs();
     exec(`${evalarg}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);});
   }
 
+  
   if(cmd === 'upload'){
-    exec(`wget ${args}`, (error, stdout, stderr) => {
+    exec(`wget ${args[0]}`, (error, stdout, stderr) => {
       msg.channel.send(stdout);
       if(debug) msg.channel.send(`${stdout}\n${stderr}`);
       if(stderr.length < 10) msg.channel.send('Success'); else msg.channel.send('Failed');
@@ -95,20 +99,18 @@ client.on('message', msg => {
       msg.channel.send(stderr);
       });
   }
+
   try{
   if(cmd === 'new'){
-    fs.writeFile(`${args[0]}.cpp`, '', function(err){if(err)msg.channel.send(err);});
+    fs.writeFile(`${args[0]}.cpp`, '', function(err){if(err) msg.channel.send(err);});
   }
 
   if(cmd === 'write'){
     var file = args.shift();
-<<<<<<< HEAD
     var code = assemble(msg.content, file.length + config.prefix.length + cmd.length);
     connectArgs();
-    fs.writeFile(`${file}.cpp`, `${evalarg}`, function(err){if(err)msg.channel.send(err);});
-=======
-    fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
->>>>>>> parent of 5d598fd... Update index.js
+    fs.writeFile(`${file}.cpp`, `${code}`, function(err){if(err) msg.channel.send(err);});
+    //fs.writeFile(`${file}.cpp`, `${args}`, function(err){if(err)msg.channel.send(err);});
   }
   }catch(e){
     msg.channel.send(e);
