@@ -120,6 +120,10 @@ client.on('message', msg => {
     connectArgs();
     var voiceChannel = msg.member.voice.channel; voiceChannel.join().then(connection =>{const dispatcher = connection.play(args[0]); dispatcher.on("end", end => {voiceChannel.leave();});}).catch(err => console.log(err));
   }
+
+  if(cmd === 'dc'){
+    msg.member.voice.channel.leave();
+  }
 });
 
 client.login(process.env.TOKEN);
