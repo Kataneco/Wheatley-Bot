@@ -16,6 +16,7 @@ var funcsave = '';
 var lastArg;
 var evalarg;
 var debug = false;
+var public;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
@@ -24,6 +25,7 @@ client.on('message', msg => {
 	const args = msg.content.replace('\n', ' ').slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
   lastArg = args;
+  public = msg;
 
   try{
     if(cmd === 'eval'){
@@ -134,4 +136,10 @@ function assemble(code, cut){
   var result = '';
   result = code.slice(cut);
   return result;
+}
+
+async function whoAsked(){
+  var msg = await public.channel.send('https://tenor.com/view/who-tf-asked-nasas-radar-dish-who-asked-nobody-asked-gif-17675657');
+  setTimeout(() => {msg.edit('https://tenor.com/view/running-fast-who-asked-meme-type-this-in-to-find-it-gif-17918036');}, 5000);
+  setTimeout(() => {msg.edit('No one.');}, 3500);
 }
