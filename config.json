@@ -1,3 +1,4 @@
 {
-	"prefix": "w"
+	"prefix": "w",
+	"help": "eval <code>\nfunc <code>\nclear (clears saved functions)\nexec <command>\ndir (shows bot directory)\nupload <link>\nnew <file name>\nwrite <file name> <content>**"
 }

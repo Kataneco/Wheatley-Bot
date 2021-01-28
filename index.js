@@ -49,20 +49,7 @@ client.on('message', msg => {
   }
 
   if(cmd === 'help' || cmd === 'elp'){
-    msg.channel.send(`
-
-    **${config.prefix} eval <code>**
-    **${config.prefix} func <code>**
-    **${config.prefix} clear (clears saved functions)**
-
-    **${config.prefix} exec <command>**
-    **${config.prefix} dir (shows bot directory)**
-    **${config.prefix} upload <link>**
-
-    **${config.prefix} new <file name>**
-    **${config.prefix} write <file name> <content>**
-
-    `);
+    msg.channel.send(config.help);
   }
 
   if(cmd === 'reset'){
