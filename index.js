@@ -141,5 +141,5 @@ function assemble(code, cut){
 async function whoAsked(){
   var msg = await public.channel.send('https://tenor.com/view/who-tf-asked-nasas-radar-dish-who-asked-nobody-asked-gif-17675657');
   setTimeout(() => {msg.edit('https://tenor.com/view/running-fast-who-asked-meme-type-this-in-to-find-it-gif-17918036');}, 5000);
-  setTimeout(() => {msg.edit('No one.');}, 3500);
+  setTimeout(() => {msg.edit('No one.');}, 3500+5000);
 }
