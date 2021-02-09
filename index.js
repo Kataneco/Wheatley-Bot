@@ -24,13 +24,13 @@ client.on('message', msg => {
 	const args = msg.content.replace('\n', ' ').slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
   public = args;
-  message = msg;
+  message = msg.content;
 
   var trim = config.prefix.length + cmd.length + cut;
 
   try{
     if(cmd === 'eval'){
-      var result = eval(`try{${save}}catch(e){msg.channel.send(e);}`+connectArgs(trim));
+      var result = eval(`try{${save}}catch(e){msg.channel.send(e);}`+`${connectArgs(trim)}`);
       msg.channel.send(result);
     }
   }
