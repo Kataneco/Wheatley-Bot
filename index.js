@@ -19,7 +19,7 @@ var public, message;
 var debug = false;
 client.on('message', msg => {
   if(msg.content === 'debug') debug = !debug;
-  if (!msg.content.toLowerCase().startsWith(config.prefix) || msg.author.bot) return;
+  if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
   
 	const args = msg.content.replace('\n', ' ').slice(config.prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
