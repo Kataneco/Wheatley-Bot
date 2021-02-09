@@ -4,8 +4,8 @@ const config = require('./config.json');
 const { exec } = require('child_process');
 const { stdout, stderr } = require('process');
 const fs = require('fs');
-const ytdl = require('ytdl');
-const yt = require('youtube-search');
+/*const ytdl = require('ytdl');
+const yt = require('youtube-search');*/
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
