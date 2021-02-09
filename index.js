@@ -12,6 +12,7 @@ client.on('ready', () => {
   client.user.setActivity(`Minecraft`);
 });
 
+var raw = false;
 var save = '';
 var cut = 1;
 var public, message;
