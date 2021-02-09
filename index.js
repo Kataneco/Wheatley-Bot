@@ -41,16 +41,14 @@ client.on('message', msg => {
   }
 
   if(cmd === 'host') host(connectArgs(trim));
-  if(cmd === 'how') msg.channel.send(`${args[2]} ${args[1]} %${Math.round(Math.random() * 100)} ${args[0]}`)
-  if(cmd === 'help' || cmd === 'elp') msg.channel.send(config.help);
+  if(cmd === 'how') {msg.channel.send(`${args[2]} ${args[1]} %${Math.round(Math.random() * 100)} ${args[0]}`); return;}
+  if(cmd === 'help' || cmd === 'elp') {msg.channel.send(config.help); return;}
   if(cmd === 'reset')process.exit(1);
-  if(cmd === 'func') save += connectArgs(trim);
-  if(cmd === 'clear') save = '';
+  if(cmd === 'save') {save += connectArgs(trim); return;}
+  if(cmd === 'clear') {save = ''; return;}
   if(cmd === 'exec') exec(`${connectArgs(trim)}`, (error, stdout, stderr) => {msg.channel.send(`${stdout}\n${stderr}`);});
   
   try{
-  if(cmd === 'new')fs.writeFile(`${args[0]}`, '', function(err){if(err) msg.channel.send(err);});
-
   if(cmd === 'write'){
     var file = args.shift();
     var code = assemble(msg.content, config.prefix.length + cmd.length + file.length + 2 + 1);
