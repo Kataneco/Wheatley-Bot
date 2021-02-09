@@ -17,6 +17,7 @@ var save = '';
 var cut = 1;
 var public, message;
 var debug = false;
+var publicMessage;
 client.on('message', msg => {
   if(msg.content === 'raw') raw = !raw;
   if(msg.content === 'debug') debug = !debug;
