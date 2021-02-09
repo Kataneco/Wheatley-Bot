@@ -12,12 +12,13 @@ client.on('ready', () => {
   client.user.setActivity(`Minecraft`);
 });
 
-var raw = false;
+var raw = true;
 var save = '';
 var cut = 1;
 var public, message;
 var debug = false;
 client.on('message', msg => {
+  if(msg.content === 'raw') raw = !raw;
   if(msg.content === 'debug') debug = !debug;
   if (!msg.content.startsWith(config.prefix) || msg.author.bot) return;
   
