@@ -18,6 +18,7 @@ var cut = 1;
 var public, message;
 var debug = false;
 var publicMessage;
+var boolean = true;
 client.on('message', msg => {
   if(msg.content === 'raw') raw = !raw;
   if(msg.content === 'debug') debug = !debug;
