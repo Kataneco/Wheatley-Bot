@@ -62,14 +62,14 @@ client.on("message", message => {
 
         case "run":
             //Supported langs; JS - C/C++ - Rust
-            let run = message.channel.messages.fetch(args[0]);
+            message.channel.messages.fetch(args[0]).then(run => {
+                if(run.content.startsWith("```js")){
+                    let result = eval(run.content.substr(-3, 5));
+                    message.channel.send(result);
+                } else {
 
-            if(run.content.startsWith("```js")){
-                let result = eval(run.content.substr(-3, 5));
-                message.channel.send(result);
-            } else {
-
-            }
+                }
+            });
             break;
 
         case "write":
