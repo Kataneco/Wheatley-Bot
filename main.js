@@ -6,7 +6,7 @@ const ytdl = require('ytdl-core');
 const yts = require('yt-search'); 
 const fs = require('fs');
 
-var prefix = '-----';
+var prefix = '-';
 var save = '';
 
 var servers = {};
