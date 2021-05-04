@@ -1,4 +1,0 @@
-{
-	"prefix": "w",
-	"help": "eval <code>\nsave <code>\nclear (clears saved functions)\nexec <command>\nwrite <file name> <content>**"
-}
