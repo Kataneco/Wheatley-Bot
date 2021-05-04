@@ -64,7 +64,7 @@ client.on("message", message => {
             //Supported langs; JS - C/C++ - Rust
             message.channel.messages.fetch(args[0]).then(run => {
                 if(run.content.startsWith("```js")){
-                    let result = eval(run.content.substr(-3, 5));
+                    let result = eval(run.content.substring(5, run.content.length - 3));
                     message.channel.send(result);
                 } else {
 
