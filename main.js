@@ -229,4 +229,4 @@ function play(msg, connection){
     });
 }
 
-client.login('Nzk2NjI5NTczNDI4MTgzMDYw.X_atGg.OLbxxftMj_WDuZiAuKrRyqVB8fA');
+client.login(process.env.TOKEN);
