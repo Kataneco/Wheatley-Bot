@@ -51,6 +51,7 @@ client.on("message", message => {
             try {
                 message.channel.send("Success",  {files: [`${args[0]}`]});
             } catch {
+
             }
             break;
 
@@ -77,6 +78,7 @@ client.on("message", message => {
                 var file = args.shift();
                 fs.writeFile(`${file}`, `${connectArgs(trim + file.length + 1)}`, function(err){msg.channel.send(err);});
             } catch {
+
             }
             break;
 
@@ -101,6 +103,9 @@ client.on("message", message => {
                     list: []
                 };
             }
+
+            //Old
+            /*
         
             (async () => {
             var server = servers[message.guild.id];
@@ -108,12 +113,12 @@ client.on("message", message => {
             var q = '';
             args.forEach(element => q += element + ' ');
 
-            const r = await yts(q);
+            const r = await yts(q); //Problem
             const video = r.videos.shift();
 
             server.queue.push(video.url);
             server.list.push(video.title);
-            message.channel.send(`Added ${video.title} to the queue`);
+            message.channel.send(`Added **${video.title}** to the queue`);
 
             if(!message.guild.voice.connection){
                 let voiceChannel = message.member.voice.channel;
@@ -125,6 +130,32 @@ client.on("message", message => {
                 });
             }
             })();
+
+            */
+
+            var server = servers[message.guild.id];
+        
+            var q = '';
+            args.forEach(element => q += element + ' ');
+
+            yts(q).then(r => {
+                const video = r.videos.shift();
+
+                server.queue.push(video.url);
+                server.list.push(video.title);
+                message.channel.send(`Added **${video.title}** to the queue`);
+    
+                if(!message.guild.voice.connection){
+                    let voiceChannel = message.member.voice.channel;
+                    voiceChannel.join().then(connection => {
+                        server.loop = false;
+                        server.volume = 1;
+                        server.connection = connection;
+                        play(message, connection);
+                    });
+                }
+            });
+
             break;
 
             case 'disconnect':
@@ -218,6 +249,7 @@ client.on("message", message => {
 function play(msg, connection){
     var server = servers[msg.guild.id];
 
+    msg.channel.send(`Now playing **${server.list[0]}**`);
     server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
     server.dispatcher.setVolume(server.volume);
 
