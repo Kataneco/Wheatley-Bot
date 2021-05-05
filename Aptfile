@@ -1,2 +1,4 @@
 build-essential
 pypy pypy-dev
+g++
+rustc

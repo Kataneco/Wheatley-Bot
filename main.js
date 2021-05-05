@@ -1,3 +1,7 @@
+/// TODO
+/// npm i ytsr
+/// replace yt-search
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const { exec } = require('child_process');
@@ -155,6 +159,8 @@ client.on("message", message => {
             var q = '';
             args.forEach(element => q += element + ' ');
 
+            //I need a limit or it gets too slow
+            var opts = { query: q, }
             yts(q).then(r => {
                 const video = r.videos.shift();
 
