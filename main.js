@@ -203,7 +203,7 @@ client.on("message", message => {
                 if(!server) return;
                 if(!server.loop) return;
                 server.loop = !server.loop;
-                msg.channel.send("**Looping:** "+server.loop);
+                message.channel.send("**Looping:** "+server.loop);
                 break;
             
             case 'queue':
@@ -213,7 +213,7 @@ client.on("message", message => {
                 var queue = '';
                 var i = 1;
                 server.list.forEach(element => { queue += `${i}. ` + element + '\n'; i++; });
-                msg.channel.send('**``' + queue + '``**');
+                message.channel.send('**``' + queue + '``**');
                 break;
             
             case 'remove':
