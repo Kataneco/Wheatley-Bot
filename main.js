@@ -78,6 +78,13 @@ client.on("message", message => {
                                 });
                             });
                         });
+                    } else if(run.content.startsWith("```py")){
+                        fs.writeFile(`${message.id}.py`, run.content.substring(5, run.content.length - 3), (err) => {
+                            message.channel.send(err);
+                            exec(`pypy ${message.id}.py`, (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                            });
+                        });
                     }
                 }
             });
