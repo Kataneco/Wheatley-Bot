@@ -74,7 +74,6 @@ client.on("message", message => {
                 } else {
                     if(run.content.startsWith("```c")){
                         fs.writeFile(`${message.id}.c`, run.content.substring(4, run.content.length - 3), (err) => {
-                            message.channel.send(err);
                             exec(`gcc ${message.id}.c -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => {
@@ -84,21 +83,18 @@ client.on("message", message => {
                         });
                     } else if(run.content.startsWith("```py")){
                         fs.writeFile(`${message.id}.py`, run.content.substring(5, run.content.length - 3), (err) => {
-                            message.channel.send(err);
                             exec(`pypy ${message.id}.py`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
                             });
                         });
                     } else if(run.content.startsWith("```python")){
                         fs.writeFile(`${message.id}.py`, run.content.substring(9, run.content.length - 3), (err) => {
-                            message.channel.send(err);
                             exec(`pypy ${message.id}.py`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
                             });
                         });
                     } else if(run.content.startsWith("```c++")){
                         fs.writeFile(`${message.id}.cpp`, run.content.substring(6, run.content.length - 3), (err) => {
-                            message.channel.send(err);
                             exec(`g++ ${message.id}.cpp -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => {
