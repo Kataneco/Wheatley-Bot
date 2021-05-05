@@ -69,14 +69,16 @@ client.on("message", message => {
                     message.channel.send(result);
                 } else {
                     if(run.content.startsWith("```c")){
-                        fs.writeFile(`${message.id}.c`, run.content.substring(4, run.content.length - 3), (err) => message.channel.send(err));
-
-                        exec(`gcc ${message.id}.c -o ${message.id}`, (error, stdout, stderr) => {
-                            message.channel.send(`${stdout} ${stderr}`);
-                        });
-
-                        exec(`./${message.id}`, (error, stdout, stderr) => {
-                            message.channel.send(`${stdout} ${stderr}`);
+                        fs.writeFile(`${message.id}.c`, run.content.substring(4, run.content.length - 3), (err) => {
+                            message.channel.send(err);
+                            
+                            exec(`gcc ${message.id}.c -o ${message.id}`, (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                            });
+    
+                            exec(`./${message.id}`, (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                            });
                         });
                     }
                 }
