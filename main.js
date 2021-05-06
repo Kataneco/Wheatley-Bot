@@ -186,8 +186,9 @@ client.on("message", message => {
             var q = '';
             args.forEach(element => q += element + ' ');
 
+            /*
             var opts = { limit: 1 }
-            yts(q/*, opts*/).then(r => {
+            yts(q, opts).then(r => {
                 const video = r.refinements.shift();
 
                 server.queue.push(video.url);
@@ -203,6 +204,25 @@ client.on("message", message => {
                         play(message, connection);
                     });
                 }
+            });
+            */
+
+            //Supposed fix
+            exec(`youtube-dl --get-filename -o "%(id)s" "ytsearch:${q}"`, (error, stdout, stderr) => {
+                server.queue.push(`https://www.youtube.com/watch?v=${stdout.replace('\n', '')}`);
+                exec(`youtube-dl --get-filename -o "%(title)s" "ytsearch:${q}"`, (e, so, se) => {
+                    server.list.push(so);
+                    message.channel.send(`Added `+'*``'+`${so.replace('\n', '')}`+'``*'+` to the queue!`);
+                    if(!message.guild.voice.connection){
+                        let voiceChannel = message.member.voice.channel;
+                        voiceChannel.join().then(connection => {
+                            server.loop = false;
+                            server.volume = 1;
+                            server.connection = connection;
+                            play(message, connection);
+                        });
+                    }
+                });
             });
 
             break;
