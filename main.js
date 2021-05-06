@@ -145,7 +145,7 @@ client.on("message", message => {
                         });
                     }
 
-                    exec(`rm ${message.id} ${message.id}.${extension}`, (error, stdout, stderr) => {});
+                    setTimeout(() => exec(`rm ${message.id} ${message.id}.${extension}`, (error, stdout, stderr) => {}), 10000);
                 }
             });
             break;
