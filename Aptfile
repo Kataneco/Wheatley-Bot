@@ -2,3 +2,5 @@ pypy pypy-dev
 build-essential
 rustc
 openjdk-11-jre-headless
+g++
+mono-complete

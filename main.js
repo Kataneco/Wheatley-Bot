@@ -1,13 +1,9 @@
-/// TODO
-/// npm i ytsr
-/// replace yt-search
-
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const { exec } = require('child_process');
 const { config, stdout, stderr } = require('process');
 const ytdl = require('ytdl-core');
-const yts = require('yt-search'); 
+const yts = require('ytsr'); 
 const fs = require('fs');
 
 var prefix = '-';
@@ -66,25 +62,29 @@ client.on("message", message => {
             break;
 
         case "run":
-            //Supported langs; JS - C/C++ - Rust
             message.channel.messages.fetch(args[0]).then(run => {
                 if(run.content.startsWith("```js")){
                     let result = eval(run.content.substring(5, run.content.length - 3));
                     message.channel.send(result);
                 } else {
+                    var extension = '';
+
                     if(run.content.startsWith("```python")){
+                        extension = 'py';
                         fs.writeFile(`${message.id}.py`, run.content.substring(9, run.content.length - 3), (err) => {
                             exec(`pypy ${message.id}.py`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
                             });
                         });
                     } else if(run.content.startsWith("```py")){
+                        extension = 'py';
                         fs.writeFile(`${message.id}.py`, run.content.substring(5, run.content.length - 3), (err) => {
                             exec(`pypy ${message.id}.py`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
                             });
                         });
                     } else if(run.content.startsWith("```c++") || run.content.startsWith("```cpp")){
+                        extension = 'cpp';
                         fs.writeFile(`${message.id}.cpp`, run.content.substring(6, run.content.length - 3), (err) => {
                             exec(`g++ ${message.id}.cpp -o ${message.id}`, (error, stdout, stderr) => { //TODO: -O3
                                 message.channel.send(`${stdout} ${stderr}`);
@@ -94,6 +94,7 @@ client.on("message", message => {
                             });
                         });
                     } else if(run.content.startsWith("```csharp")) {
+                        extension = 'cs';
                         fs.writeFile(`${message.id}.cs`, run.content.substring(9, run.content.length - 3), (err) => {
                             exec(`mcs -out:${message.id}.exe ${message.id}.cs`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
@@ -103,6 +104,7 @@ client.on("message", message => {
                             });
                         });
                     } else if(run.content.startsWith("```cs")) {
+                        extension = 'cs';
                         fs.writeFile(`${message.id}.cs`, run.content.substring(5, run.content.length - 3), (err) => {
                             exec(`mcs -out:${message.id}.exe ${message.id}.cs`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
@@ -112,6 +114,7 @@ client.on("message", message => {
                             });
                         });
                     } else if(run.content.startsWith("```rs")){
+                        extension = 'rs';
                         fs.writeFile(`${message.id}.rs`, run.content.substring(5, run.content.length - 3), (err) => {
                             exec(`rustc ${message.id}.rs`,  (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
@@ -121,6 +124,7 @@ client.on("message", message => {
                             }); 
                         });
                     } else if(run.content.startsWith("```rust")){
+                        extension = 'rs';
                         fs.writeFile(`${message.id}.rs`, run.content.substring(7, run.content.length - 3), (err) => {
                             exec(`rustc ${message.id}.rs`,  (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
@@ -130,6 +134,7 @@ client.on("message", message => {
                             }); 
                         });
                     } else if(run.content.startsWith("```c")){
+                        extension = 'c';
                         fs.writeFile(`${message.id}.c`, run.content.substring(4, run.content.length - 3), (err) => {
                             exec(`gcc ${message.id}.c -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout} ${stderr}`);
@@ -139,6 +144,8 @@ client.on("message", message => {
                             });
                         });
                     }
+
+                    exec(`rm ${message.id} ${message.id}.${extension}`, (error, stdout, stderr) => {});
                 }
             });
             break;
@@ -174,44 +181,14 @@ client.on("message", message => {
                 };
             }
 
-            //Old
-            /*
-        
-            (async () => {
             var server = servers[message.guild.id];
         
             var q = '';
             args.forEach(element => q += element + ' ');
 
-            const r = await yts(q); //Problem
-            const video = r.videos.shift();
-
-            server.queue.push(video.url);
-            server.list.push(video.title);
-            message.channel.send(`Added **${video.title}** to the queue`);
-
-            if(!message.guild.voice.connection){
-                let voiceChannel = message.member.voice.channel;
-                voiceChannel.join().then(connection => {
-                    server.loop = false;
-                    server.volume = 1;
-                    server.connection = connection;
-                    play(message, connection);
-                });
-            }
-            })();
-
-            */
-
-            var server = servers[message.guild.id];
-        
-            var q = '';
-            args.forEach(element => q += element + ' ');
-
-            //I need a limit or it gets too slow
-            var opts = { query: q, }
-            yts(q).then(r => {
-                const video = r.videos.shift();
+            var opts = { limit: 1 }
+            yts(q, opts).then(r => {
+                const video = r[0];
 
                 server.queue.push(video.url);
                 server.list.push(video.title);
@@ -306,11 +283,12 @@ client.on("message", message => {
             break;
 
         case "reset":
+            client.destroy();
             process.exit(1);
             break;
 
         case "how":
-            message.channel.send(`${message.content.slice(args[0].length + args[1].length + trim + 1)} ${args[1]} %${Math.round(Math.random() * 100)} ${args[0]}`);
+            message.channel.send(`${message.content.slice(args[0].length + args[1].length + trim + 2)} ${args[1]} %${Math.round(Math.random() * 100)} ${args[0]}`);
             break;
         
         default:
