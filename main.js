@@ -187,7 +187,7 @@ client.on("message", message => {
             args.forEach(element => q += element + ' ');
 
             var opts = { limit: 1 }
-            yts(q, opts).then(r => {
+            yts(q/*, opts*/).then(r => {
                 const video = r.refinements.shift();
 
                 server.queue.push(video.url);
