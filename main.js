@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const { exec } = require('child_process');
 const { config, stdout, stderr } = require('process');
 const ytdl = require('ytdl-core');
-const yts = require('ytsr'); 
+const yts = require('yt-search'); 
 const fs = require('fs');
 
 var prefix = '-';
@@ -186,13 +186,12 @@ client.on("message", message => {
             var q = '';
             args.forEach(element => q += element + ' ');
 
-            /*
             var opts = { limit: 1 }
-            yts(q, opts).then(r => {
-                const video = r.refinements.shift();
+            yts(q).then(r => {
+                const video = r.videos.shift();
 
                 server.queue.push(video.url);
-                server.list.push(video.q);
+                server.list.push(video.title);
                 message.channel.send(`Added **${video.title}** to the queue`);
     
                 if(!message.guild.voice.connection){
@@ -205,8 +204,8 @@ client.on("message", message => {
                     });
                 }
             });
-            */
 
+            /*
             //Supposed fix
             exec(`youtube-dl --get-filename -o "%(id)s" "ytsearch:${q}"`, (error, stdout, stderr) => {
                 server.queue.push(`https://www.youtube.com/watch?v=${stdout.replace('\n', '')}`);
@@ -224,6 +223,7 @@ client.on("message", message => {
                     }
                 });
             });
+            */
 
             break;
 
