@@ -188,7 +188,7 @@ client.on("message", message => {
 
             var opts = { limit: 1 }
             yts(q, opts).then(r => {
-                const video = r[0];
+                const video = r.refinements[0];
 
                 server.queue.push(video.url);
                 server.list.push(video.title);
