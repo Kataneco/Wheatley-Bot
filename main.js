@@ -93,14 +93,50 @@ client.on("message", message => {
                                 message.channel.send(`${stdout} ${stderr}`);
                             });
                         });
-                    } else if(run.content.startsWith("```c++")){
+                    } else if(run.content.startsWith("```c++") || run.content.startsWith("```cpp")){
                         fs.writeFile(`${message.id}.cpp`, run.content.substring(6, run.content.length - 3), (err) => {
-                            exec(`g++ ${message.id}.cpp -o ${message.id} -O3`, (error, stdout, stderr) => {
+                            exec(`g++ ${message.id}.cpp -o ${message.id}`, (error, stdout, stderr) => { //TODO: -O3
                                 message.channel.send(`${stdout} ${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => {
                                     message.channel.send(`${stdout} ${stderr}`);
                                 });
                             });
+                        });
+                    } else if(run.content.startsWith("```cs")) {
+                        fs.writeFile(`${message.id}.cs`, run.content.substring(5, run.content.length - 3), (err) => {
+                            exec(`mcs -out:${message.id}.exe ${message.id}.cs`, (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                                exec(`mono ${message.id}.exe`, (error, stdout, stderr) => {
+                                    message.channel.send(`${stdout} ${stderr}`);
+                                });
+                            });
+                        });
+                    } else if(run.content.startsWith("```csharp")) {
+                        fs.writeFile(`${message.id}.cs`, run.content.substring(9, run.content.length - 3), (err) => {
+                            exec(`mcs -out:${message.id}.exe ${message.id}.cs`, (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                                exec(`mono ${message.id}.exe`, (error, stdout, stderr) => {
+                                    message.channel.send(`${stdout} ${stderr}`);
+                                });
+                            });
+                        });
+                    } else if(run.content.startsWith("```rs")){
+                        fs.writeFile(`${message.id}.rs`, run.content.substring(5, run.content.length - 3), (err) => {
+                            exec(`rustc ${message.id}.rs`,  (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                                exec(`./${message.id}`, (error, stdout, stderr) => {
+                                    message.channel.send(`${stdout} ${stderr}`);
+                                });
+                            }); 
+                        });
+                    } else if(run.content.startsWith("```rust")){
+                        fs.writeFile(`${message.id}.rs`, run.content.substring(7, run.content.length - 3), (err) => {
+                            exec(`rustc ${message.id}.rs`,  (error, stdout, stderr) => {
+                                message.channel.send(`${stdout} ${stderr}`);
+                                exec(`./${message.id}`, (error, stdout, stderr) => {
+                                    message.channel.send(`${stdout} ${stderr}`);
+                                });
+                            }); 
                         });
                     }
                 }
