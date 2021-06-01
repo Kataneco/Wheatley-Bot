@@ -11,7 +11,8 @@ var save = '';
 
 var servers = {};
 
-var program;
+var commands = [];
+var actions = [];
 
 client.on("message", message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -205,26 +206,6 @@ client.on("message", message => {
                 }
             });
 
-            /*
-            //Supposed fix
-            exec(`youtube-dl --get-filename -o "%(id)s" "ytsearch:${q}"`, (error, stdout, stderr) => {
-                server.queue.push(`https://www.youtube.com/watch?v=${stdout.replace('\n', '')}`);
-                exec(`youtube-dl --get-filename -o "%(title)s" "ytsearch:${q}"`, (e, so, se) => {
-                    server.list.push(so);
-                    message.channel.send(`Added `+'*``'+`${so.replace('\n', '')}`+'``*'+` to the queue!`);
-                    if(!message.guild.voice.connection){
-                        let voiceChannel = message.member.voice.channel;
-                        voiceChannel.join().then(connection => {
-                            server.loop = false;
-                            server.volume = 1;
-                            server.connection = connection;
-                            play(message, connection);
-                        });
-                    }
-                });
-            });
-            */
-
             break;
 
             case 'disconnect':
@@ -299,6 +280,11 @@ client.on("message", message => {
                 break;
         
         case "program":
+            commands.push(args[0]);
+            message.channel.messages.fetch(args[1]).then(act => actions.push(run.content.substring(5, act.content.length - 3)));
+            break;
+
+        case "delete":
             //later
             break;
 
@@ -312,6 +298,8 @@ client.on("message", message => {
             break;
         
         default:
+            for(var i = 0; i < commands.length; i++)
+                if(cmd === commands[i]) eval(actions[i]);
             break;
     }
 });
