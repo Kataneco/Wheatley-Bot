@@ -32,12 +32,9 @@ client.on("message", message => {
             break;
 
         case "eval":
-            try {
-                let result = eval(`try{${save}}catch{} `+message.content.slice(trim));
-                message.channel.send(result);
-            } catch {
-
-            }
+            let result = eval(`try{${save}}catch{} `+message.content.slice(trim));
+            if(!result) return;
+            message.channel.send(result);
             break;
 
         case "save":
