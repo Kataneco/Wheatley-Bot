@@ -278,7 +278,7 @@ client.on("message", message => {
         
         case "program":
             commands.push(args[0]);
-            message.channel.messages.fetch(args[1]).then(act => actions.push(run.content.substring(5, act.content.length - 3)));
+            message.channel.messages.fetch(args[1]).then(act => actions.push(act.content.substring(5, act.content.length - 3)));
             break;
 
         case "delete":
