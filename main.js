@@ -151,7 +151,7 @@ client.on("message", message => {
         case "write":
             try{
                 var file = args.shift();
-                fs.writeFile(`${file}`, `${message.content.slice(trim + file.length + 1)}`, (err) => msg.channel.send(err));
+                fs.writeFile(`${file}`, `${message.content.slice(trim + file.length + 1)}`, (err) => message.channel.send(err));
             } catch {
 
             }
