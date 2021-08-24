@@ -168,10 +168,6 @@ client.on("message", message => {
                 return;
             }
 
-            if(!message.guild.voice){
-                message.member.voice.channel.join().then(() => { message.member.voice.channel.leave(); });
-            }
-
             if(!servers[message.guild.id]){
                 servers[message.guild.id] ={
                     queue: [],
@@ -191,7 +187,18 @@ client.on("message", message => {
                 server.queue.push(video.url);
                 server.list.push(video.title);
                 message.channel.send(`Added **${video.title}** to the queue`);
-    
+
+                if(!message.guild.voice){
+                    let voiceChannel = message.member.voice.channel;
+                    voiceChannel.join().then(connection => {
+                        server.loop = false;
+                        server.volume = 1;
+                        server.connection = connection;
+                        play(message, connection);
+                    });
+                    return;
+                }
+                
                 if(!message.guild.voice.connection){
                     let voiceChannel = message.member.voice.channel;
                     voiceChannel.join().then(connection => {
