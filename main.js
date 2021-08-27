@@ -106,7 +106,7 @@ client.on("message", message => {
 
                     case "py":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
-                            exec(`pypy ${message.id}.${data.lang}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
+                            exec(`python3 ${message.id}.${data.lang}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
                         });
                         break;
 
