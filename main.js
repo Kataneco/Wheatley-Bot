@@ -35,10 +35,17 @@ client.on("message", message => {
     const trim = server.prefix.length + command.length + 1;
 
     switch(command) {
+        case "prefix":
+            if(!args[0]) return;
+            server.prefix = args[0];
+            break;
+
         case "eval":
-            let result = eval(`try{${server.eval}}catch{} try{${message.content.slice(trim)}}catch{}`);
-            if(!result) return;
-            message.channel.send(result);
+            try{
+                let result = eval(server.eval + message.content.slice(trim));
+                if(!result) return;
+                message.channel.send(result);
+            }catch{}
             break;
 
         case "save":
