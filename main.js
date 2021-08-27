@@ -36,7 +36,7 @@ client.on("message", message => {
 
     switch(command) {
         case "eval":
-            let result = eval(`try{${sevrer.eval}}catch{} try{${message.content.slice(trim)}}catch{}`);
+            let result = eval(`try{${server.eval}}catch{} try{${message.content.slice(trim)}}catch{}`);
             if(!result) return;
             message.channel.send(result);
             break;
