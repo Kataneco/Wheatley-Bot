@@ -5,11 +5,11 @@ const yts = require("yt-search");
 const fs = require("fs");
 const { stderr } = require("process");
 
-const intents = new Discord.Intents([Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES]);
-const client = new Discord.Client({intents: intents});
+//const intents = new Discord.Intents([Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES]);
+const client = new Discord.Client(/*{intents: intents}*/);
 var servers = {};
 
-client.on("messageCreate", message => {
+client.on("message", message => {
         if(!servers[message.guild.id]){
         servers[message.guild.id] = {
             prefix: "-",
