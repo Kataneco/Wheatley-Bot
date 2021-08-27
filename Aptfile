@@ -1,2 +1,2 @@
 rustc
-clang-12 --install-suggests
+clang-12
