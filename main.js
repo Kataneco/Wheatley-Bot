@@ -215,7 +215,7 @@ function getLanguage(content){
         }
     }
 
-    return {lang: result, cut: i};
+    return {lang: result, cut: index};
 }
 
 function play(server, channel){
