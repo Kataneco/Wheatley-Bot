@@ -1,6 +1,9 @@
 {
   "name": "wheatley",
   "version": "69.420.666",
+  "engines": {
+    "node": "16.x"
+  },
   "description": "among us",
   "main": "main.js",
   "scripts": {
