@@ -1,20 +1,19 @@
 {
-  "name": "wheatley-revamped",
-  "version": "1.0.0",
-  "description": "Bot",
+  "name": "wheatley",
+  "version": "69.420.666",
+  "description": "among us",
   "main": "main.js",
-  "dependencies": {
-    "@discordjs/opus": "^0.5.0",
-    "axios": "^0.21.1",
-    "discord.js": "^12.5.1",
-    "ffmpeg-static": "^4.3.0",
-    "yt-search": "^2.8.0",
-    "ytdl-core": "^4.9.1"
-  },
-  "devDependencies": {},
   "scripts": {
-    "start": "main.js"
+    "start": "node main.js"
   },
-  "author": "Hornette",
-  "license": "No license"
+  "author": "Hornet",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.6.0",
+    "axios": "^0.21.1",
+    "discord.js": "^13.1.0",
+    "ffmpeg-static": "^4.4.0",
+    "yt-search": "^2.10.1",
+    "ytdl-core": "^4.9.1"
+  }
 }

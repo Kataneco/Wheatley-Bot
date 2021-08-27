@@ -1,2 +1,2 @@
-Wheatley is back  
-heroku still sucks tho  
+:trollface:
+TODO: Add lolcode and brainfuck support
