@@ -201,7 +201,7 @@ function getLanguage(content){
     var result = "";
 
     var index = 0;
-    while(content[i] !== '\n'){
+    while(content[index] !== '\n'){
         result += content[index];
         index++;
     }
