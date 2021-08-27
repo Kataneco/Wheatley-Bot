@@ -88,7 +88,7 @@ client.on("message", message => {
 
                     case "c":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
-                            exec(`gcc ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
+                            exec(`clang-12 ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
                             });
@@ -97,7 +97,7 @@ client.on("message", message => {
                                 
                     case "cpp":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
-                            exec(`clang++ ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
+                            exec(`clang++-12 ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
                             });
