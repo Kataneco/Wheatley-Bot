@@ -94,6 +94,15 @@ client.on("message", message => {
                             });
                         });
                         break;
+                                
+                    case "cpp":
+                        fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
+                            exec(`g++ ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
+                                message.channel.send(`${stdout}\n${stderr}`);
+                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
+                            });
+                        });
+                        break;
                     
                     case "rs":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
