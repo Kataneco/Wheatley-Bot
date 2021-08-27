@@ -1,2 +1,4 @@
+ppa:pypy/ppa
+pypy3
 pypy pypy-dev
 rustc
