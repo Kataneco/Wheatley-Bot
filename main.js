@@ -30,7 +30,7 @@ client.on("message", message => {
 
     if(!message.content.startsWith(server.prefix) || message.author.bot) return;
     
-    var args = message.content.slice(prefix.length).trim().split(/ +/g);
+    var args = message.content.slice(server.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     const trim = server.prefix.length + command.length + 1;
 
