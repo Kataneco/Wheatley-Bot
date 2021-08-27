@@ -200,10 +200,10 @@ const extensions = ["js", "py", "rs", "cpp", "kt", "go", "ts", "lol", "bf", "cs"
 function getLanguage(content){
     var result = "";
 
-    var i = 0;
+    var index = 0;
     while(content[i] !== '\n'){
-        result += content[i];
-        i++;
+        result += content[index];
+        index++;
     }
 
     result = result.slice(3);
