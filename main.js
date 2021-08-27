@@ -9,7 +9,7 @@ const intents = new Discord.Intents([Discord.Intents.FLAGS.GUILDS, Discord.Inten
 const client = new Discord.Client({intents: intents});
 var servers = {};
 
-client.on("message", message => {
+client.on("messageCreate", message => {
         if(!servers[message.guild.id]){
         servers[message.guild.id] = {
             prefix: "-",
