@@ -1,2 +1,3 @@
+clang-12
+libc++-dev
 rustc
-clang-12 --install-suggests
