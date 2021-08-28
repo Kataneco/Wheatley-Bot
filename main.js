@@ -69,6 +69,7 @@ client.on("message", message => {
         case "write":
             const file = args.shift();
             const id = args.shift();
+            if(!file || !id) return;
             message.channel.messages.fetch(id).then(write => {
                 fs.writeFile(file, write.content.substring(3, write.content.length - 3), err => {});
             });
@@ -97,7 +98,7 @@ client.on("message", message => {
                                 
                     case "cpp":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
-                            exec(`clang++-12 -std=c++20 -stdlib=libstdc++ ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
+                            exec(`clang++-12 -std=c++20 ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
                             });
