@@ -57,6 +57,7 @@ client.on("message", message => {
             break;
 
         case "exec":
+            if(!args[0]) return;
             exec(message.content.slice(trim), (error, stdout, stderr) => message.channel.send(`${stdout}_ _${stderr}`));
             break;
 
