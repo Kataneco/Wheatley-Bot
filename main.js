@@ -97,7 +97,7 @@ client.on("message", message => {
                                 
                     case "cpp":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
-                            exec(`clang++-12 -std=c++20 ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
+                            exec(`clang++-12 -std=c++20 -stdlib=libstdc++ ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
                                 exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
                             });
