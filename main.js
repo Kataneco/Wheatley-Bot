@@ -58,7 +58,7 @@ client.on("message", message => {
 
         case "exec":
             if(!args[0]) return;
-            exec(message.content.slice(trim), (error, stdout, stderr) => {if(!stdout && !stderr) return; message.channel.send(`${stdout}\n${stderr}`); });
+            exec(message.content.slice(trim), (error, stdout, stderr) => {if(!stdout && !stderr) return; message.channel.send((stdout+'\n'+stderr).substring(0, 4000)); });
             break;
 
         case "get":
