@@ -1,3 +1,5 @@
+function runme()
+{
 try{
 
 const Discord = require("discord.js");
@@ -247,4 +249,6 @@ function play(server, channel){
     });
 }
 
-}catch{}
+}catch{runme();}
+}
+runme();
