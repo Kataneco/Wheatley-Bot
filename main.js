@@ -63,7 +63,7 @@ client.on("message", message => {
         case "exec":
             if(!args[0]) return;
             exec(message.content.slice(trim), (error, stdout, stderr) => {
-                    if(stdout.length + stderr.length > 2000) fs.writeFile(message.id, stdout + stderr, err=>message.channel.send({files: [`./${message.id}`]}));
+                    if(stdout.length + stderr.length > 2000) fs.writeFile(message.id + ".txt", stdout + stderr, err=>message.channel.send({files: [`./${message.id}.txt`]}));
                     else message.channel.send(stdout+stderr);
             });
             break;
