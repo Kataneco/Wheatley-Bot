@@ -1,3 +1,5 @@
+try{
+
 const Discord = require("discord.js");
 const { exec } = require("child_process");
 const ytdl = require("ytdl-core");
@@ -58,7 +60,10 @@ client.on("message", message => {
 
         case "exec":
             if(!args[0]) return;
-            exec(message.content.slice(trim), (error, stdout, stderr) => {if(!stdout && !stderr) return; message.channel.send((stdout+'\n'+stderr).substring(0, 4000)); });
+            exec(message.content.slice(trim), (error, stdout, stderr) => {
+                    if(stdout.length + stderr.length > 2000) fs.writeFile(message.id, stdout + stderr, err=>message.channel.send({files: `./message.id`}));
+                    else message.channel.send(stdout+stderr);
+            });
             break;
 
         case "get":
@@ -241,3 +246,5 @@ function play(server, channel){
         else connection.disconnect();
     });
 }
+
+}catch{}
