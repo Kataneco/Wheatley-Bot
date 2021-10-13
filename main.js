@@ -212,7 +212,7 @@ client.on("message", message => {
 });
         
 client.on('voiceStateUpdate', (o, n) => {
-  if(o.voiceChanel === undefined && n.voiceChannel !== undefined) {
+  if(o.voiceChanel === undefined && n.voiceChannel) {
     n.member.roles.add(n.guild.roles.cache.find(role => role.name == "vc"));
   } else if(n.voiceChannel === undefined){
     n.member.roles.remove(n.guild.roles.cache.find(role => role.name == "vc"));
