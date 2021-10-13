@@ -213,9 +213,9 @@ client.on("message", message => {
         
 client.on('voiceStateUpdate', (o, n) => {
   if(o.voiceChanel === undefined && n.voiceChannel !== undefined) {
-    n.roles.add(n.guild.roles.cache.find(role => role.name == "vc"));
+    n.member.roles.add(n.guild.roles.cache.find(role => role.name == "vc"));
   } else if(n.voiceChannel === undefined){
-    n.roles.add(n.guild.roles.cache.find(role => role.name == "vc"));
+    n.member.roles.add(n.guild.roles.cache.find(role => role.name == "vc"));
   }
 });
 
