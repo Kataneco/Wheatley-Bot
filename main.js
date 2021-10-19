@@ -1,7 +1,3 @@
-function runme()
-{
-try{
-
 const Discord = require("discord.js");
 const { exec } = require("child_process");
 const ytdl = require("ytdl-core");
@@ -256,7 +252,3 @@ function play(server, channel){
         else connection.disconnect();
     });
 }
-
-}catch{runme();}
-}
-runme();
