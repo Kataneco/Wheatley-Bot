@@ -241,6 +241,6 @@ function play(server, channel){
 
     server.dispatcher.on('finish', () => {
         if(server.queue[0]) play(server, channel);
-        else connection.disconnect();
+        else server.connection.disconnect();
     });
 }
