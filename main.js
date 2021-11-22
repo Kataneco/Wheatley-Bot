@@ -138,6 +138,7 @@ client.on("message", message => {
                         const video = r.videos.shift();
                         ytdl(video).pipe(fs.createWriteStream(message.id+'.mp4')).then(()=>message.channel.send("_ _", {files: [message.id+'.mp4']}))
                 });
+            break;
                     
         case 'play':
             if(!args[0] || !message.member.voice.channel) return;
