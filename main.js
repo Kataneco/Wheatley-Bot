@@ -131,7 +131,14 @@ client.on("message", message => {
                 setTimeout(() => exec(`rm ${message.id} ${message.id}.${data.lang}`), 10000);
             });
             break;
-
+                    
+        
+            case 'download':
+                yts({pages: 1, query: message.content.slice(trim)}).then(r => {
+                        const video = r.videos.shift();
+                        ytdl(video).pipe(fs.createWriteStream(message.id+'.mp4')).then(()=>message.channel.send("_ _", {files: [message.id+'.mp4']}))
+                });
+                    
         case 'play':
             if(!args[0] || !message.member.voice.channel) return;
 
