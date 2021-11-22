@@ -136,7 +136,8 @@ client.on("message", message => {
             case 'download':
                 yts({pages: 1, query: message.content.slice(trim)}).then(r => {
                         const video = r.videos.shift();
-                        ytdl(video).pipe(fs.createWriteStream(message.id+'.mp4')).then(()=>message.channel.send("_ _", {files: [message.id+'.mp4']}))
+                        let me = ytdl(video).pipe(fs.createWriteStream(message.id+'.mp4'));
+                        me.on("finish", () => message.channel.send("_ _", {files: [message.id+'.mp4']}).then(promis => fs.unlink(message.id+'.mp4')));
                 });
             break;
                     
