@@ -1,5 +1,2 @@
 clang-12
-libstdc++6
 rustc
-mono-complete
-g++
