@@ -6,7 +6,7 @@ function run() {
   const url = "https://raw.githubusercontent.com/Hornet07/Wheatley-Bot/main/main.js"
   fetch(url)
    .then( r => r.text() )
-   .then( t => fs.writeFile('main.js.real', t, err => exec("node main.js", (x, y, z) => run())));
+   .then( t => fs.writeFile('main.js.real', t, err => exec("node main.js.real", (x, y, z) => run())));
 }
 
 run();
