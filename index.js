@@ -1,5 +1,6 @@
 const { exec } = require("child_process");
 const fs = require('fs');
+const fetch = require("node-fetch");
 
 function run() {
   const url = "https://raw.githubusercontent.com/Hornet07/Wheatley-Bot/main/main.js"
