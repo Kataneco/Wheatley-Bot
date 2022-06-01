@@ -87,7 +87,7 @@ client.on("message", message => {
                 switch (data.lang) {
                     case "js":
                         let result = eval(code);
-                        if(!result) return;
+                        if(!result) break;
                         message.channel.send(result);
                         break;
 
