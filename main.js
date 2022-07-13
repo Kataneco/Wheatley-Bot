@@ -10,6 +10,7 @@ const client = new Discord.Client(/*{intents: intents}*/);
 var servers = {};
 
 client.on("message", message => {
+        if (message.content == "https://images-ext-1.discordapp.net/external/_61Hr2CLv2_UJfedCHy--C9tdb4ttPE0Oz-aie9dJE4/https/media.tenor.com/iyz_hq06ezwAAAPo/obedecelamorza-darkweb.mp4") message.delete();
         if(!servers[message.guild.id]){
         servers[message.guild.id] = {
             prefix: "-",
