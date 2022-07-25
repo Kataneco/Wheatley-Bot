@@ -96,7 +96,7 @@ client.on("message", message => {
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
                             exec(`clang-12 ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
-                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
+                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${error}\n${stdout}\n${stderr}`));
                             });
                         });
                         break;
@@ -105,7 +105,7 @@ client.on("message", message => {
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
                             exec(`clang++-12 -std=c++20 ${message.id}.${data.lang} -o ${message.id} -O3`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
-                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
+                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${error}\n${stdout}\n${stderr}`));
                             });
                         });
                         break;
@@ -114,14 +114,14 @@ client.on("message", message => {
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
                             exec(`rustc ${message.id}.${data.lang}`, (error, stdout, stderr) => {
                                 message.channel.send(`${stdout}\n${stderr}`);
-                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
+                                exec(`./${message.id}`, (error, stdout, stderr) => message.channel.send(`${error}\n${stdout}\n${stderr}`));
                             });
                         });
                         break;
 
                     case "py":
                         fs.writeFile(`${message.id}.${data.lang}`, code, err=>{
-                            exec(`python3 ${message.id}.${data.lang}`, (error, stdout, stderr) => message.channel.send(`${stdout}\n${stderr}`));
+                            exec(`python3 ${message.id}.${data.lang}`, (error, stdout, stderr) => message.channel.send(`${error}\n${stdout}\n${stderr}`));
                         });
                         break;
 
